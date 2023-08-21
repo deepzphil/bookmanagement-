@@ -10,16 +10,21 @@ import com.bookmanagement.bookmanagement.model.Book;
 //Interface bookservice
 public interface BookService {
 	//To return all books in pagination
-	Page<Book> getAllBooks(Pageable pageable);
-// to return book by a id
+   Page<Book> getAllBooks(Pageable pageable);
+   
+   // to return book by a id
     Book getBookById(Long id);
-// to insert a book
+    
+   // to insert a book
     Book createBook(Book book);
-//to update a book
+    
+   //to update a book
     Book updateBook(Long id, Book book);
-//to delete a book
+    
+   //to delete a book
     void deleteBook(Long id);
-//to search a book
+    
+   //to search a book
     List<Book> searchBooks(String author);
 
 }
