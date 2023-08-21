@@ -3,6 +3,8 @@ bookmanagement with crud operations
 
 This project is a bookmanagement system with crud operations
 
+clone the repository  using git clone
+
 steps:
 1.right click the project and click run as and select maven build then a edit configuration box will appear and give the command "clean install" to build 
 
