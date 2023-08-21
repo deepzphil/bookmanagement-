@@ -3,7 +3,10 @@ bookmanagement with crud operations
 
 This project is a bookmanagement system with crud operations
 
-clone the repository  using git clone
+clone the repository  using git bash by giving command  git clone "url" and it will be cloned in the local.
+
+Once cloned,open the IDE and in project explorer right click where we have option for import and import existing maven project and chose the project.
+
 
 steps:
 1.right click the project and click run as and select maven build then a edit configuration box will appear and give the command "clean install" to build 
