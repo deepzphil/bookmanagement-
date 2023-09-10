@@ -13,6 +13,7 @@ import com.bookmanagement.bookmanagement.exception.BookNotFoundException;
 import com.bookmanagement.bookmanagement.model.Book;
 import com.bookmanagement.bookmanagement.repository.BookRepository;
 
+
 @Service
 public class BookServiceImpl implements BookService{
 	@Autowired
@@ -25,15 +26,11 @@ public class BookServiceImpl implements BookService{
 // to return book by id
 	@Override
 	public Book getBookById(Long id) {
-		 try {
+		
 	            return bookRepository.findById(id).orElseThrow(
 	                () -> new BookNotFoundException("Book not found with id: " + id)
 	            );
-	        } catch (BookNotFoundException ex) {
-	             throw ex;
-	        } catch (Exception ex) {
-	          throw new RuntimeException("Error while fetching book by ID: " + id, ex);
-	        }
+	        
 	}
 // to create/savea book
 	@Override
@@ -41,13 +38,13 @@ public class BookServiceImpl implements BookService{
 		  try {
 	            return bookRepository.save(book);
 	        } catch (Exception ex) {
-	           throw new RuntimeException("Error while creating a book", ex);
+	           throw new RuntimeException("Unexpected error while creating a book", ex);
 	        }
 	}
 // to update a book
 	@Override
 	public Book updateBook(Long id, Book book) {
-		 try {
+		
 			 //to check whether a existing book is there 
 	            Optional<Book> existingBook = bookRepository.findById(id);
 	            //if so update the book
@@ -57,20 +54,19 @@ public class BookServiceImpl implements BookService{
 	            } else {
 	                throw new BookNotFoundException("Book not found with id: " + id);
 	            }
-	        } catch (BookNotFoundException ex) {
-	            throw ex;
-	        } catch (Exception ex) {
-	            throw new RuntimeException("Error while updating book with ID: " + id, ex);
-	        }
+
 	}
 // to delete a book
 	@Override
 	public void deleteBook(Long id) {
-		  try {
+		 
+			  Optional<Book> existingBook = bookRepository.findById(id);
+			  if (existingBook.isPresent()) {
 	            bookRepository.deleteById(id);
-	        } catch (Exception ex) {
-	           throw new RuntimeException("Error while deleting book with ID: " + id, ex);
-	        }
+			  } else {
+				  throw new BookNotFoundException("Book not found with id: " + id);
+			  }
+	      
 	}
 	//to search a book
 	@Override
@@ -79,7 +75,7 @@ public class BookServiceImpl implements BookService{
 	        List<Book> foundBooks = bookRepository.findByTitle(title);
 	        return foundBooks;
 	    } catch (Exception ex) {
-	        throw new RuntimeException("Error while searching for books", ex);
+	        throw new RuntimeException("Book not found with title:" , ex);
 	    }
 	}
 

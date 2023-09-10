@@ -68,10 +68,10 @@ import com.bookmanagement.bookmanagement.service.BookService;
 	    }
 // to delete a book
 	    @DeleteMapping("/{id}")
-	    public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
+	    public ResponseEntity<String> deleteBook(@PathVariable Long id) {
 	        bookService.deleteBook(id);
-	        return ResponseEntity.noContent().build();
-	    }
+	        return ResponseEntity.ok("the book is deleted");
+	    	}
 // to search a book using title
 	    @GetMapping("/search")
 	    public ResponseEntity<List<Book>> searchBooks(@RequestParam String title) {
@@ -83,7 +83,11 @@ import com.bookmanagement.bookmanagement.service.BookService;
 	    public ResponseEntity<String> handleBookNotFoundException(BookNotFoundException ex) {
 	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
 	    }
-	
+	    
+	    @ExceptionHandler(Exception.class)
+	    public ResponseEntity<String> handleException(Exception ex) {
+	       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + ex.getMessage());
+	    }
 	
 
 }
