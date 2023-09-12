@@ -27,6 +27,6 @@ public interface BookService {
     void deleteBook(Long id);
     
    //to search a book
-    List<Book> searchBooks(String author);
+    List<Book> searchBooks(String title);
 
 }
